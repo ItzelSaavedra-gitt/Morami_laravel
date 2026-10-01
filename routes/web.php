@@ -20,6 +20,10 @@ Route:: get('/',function(){
 
 Route:: get('/usuarios',[usuarioController::class,'MiInterfaz1']);  //referencia al metodo ::  
 
+Route:: get('/productosre',[productosregistradosController::class,'MiInterfaz7']);
+
+Route:: get('/pedido',[pedidoController::class,'MiInterfaz6']);
+
 Route:: get('/cotizacion',[cotizacionController::class,'MiInterfaz']);  //referencia a metodo ::  
 
 Route:: get('/inventario',[inventarioController::class,'MiInterfaz2']);  //referencia a metodo ::  
@@ -29,10 +33,6 @@ Route::get('/login',[loginController::class,'MiInterfaz3']);
 Route:: get('/panel',[panelController::class,'MiInterfaz4']);
 
 Route:: get('/pantalla_principal',[pantalla_principalController::class,'MiInterfaz5']);
-
-Route:: get('/pedido',[pedidoController::class,'MiInterfaz6']);
-
-Route:: get('/productosregistrados',[productosregistradosController::class,'MiInterfaz7']);
 
 Route:: get('/registro_cotizaciones',[registro_cotizacionesController::class,'MiInterfaz8']);
 

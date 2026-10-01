@@ -101,7 +101,7 @@
             </a>
           </li>
           <li class='nav-item'>
-            <a href='index.php?menu=productos&opc=registro' class='nav-link active'>
+            <a href='index.php?menu=productos&opc=registro' class='nav-link'>
               <i class='nav-icon fas fa-tachometer-alt'></i>
               <p>Productos </p>
             </a>
@@ -119,7 +119,7 @@
             </a>
           </li>
           <li class='nav-item'>
-            <a href='index.php?menu=pedidos&opc=registro' class='nav-link'>
+            <a href='index.php?menu=pedidos&opc=registro' class='nav-link active'>
               <i class='nav-icon fas fa-shopping-cart'></i>
               <p> Pedidos </p>
             </a>
@@ -181,35 +181,21 @@
             <table id="example2" class="table table-bordered table-hover">
               <thead>
                 <tr>
-                  <th>Cliente</th>
+                  <th>Pedido No.</th>
                   <th>Fecha de solicitud</th>
                   <th>Total</th>
                   <th>Estatus</th>
-                  <th>Detalle</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Cliente a</td>
-                  <td>03/03/26</td>
-                  <td>1200</td>
-                  <td>Pendiente</td>
-                  <td><button style="background-color: #FFFF00; color: black; padding: 10px 20px; border: none; cursor: pointer;">Mostrar detalles</button></td>
-                </tr>
-                <tr>
-                  <td>Cliente b</td>
-                  <td>17/01/26</td>
-                  <td>1000</td>
-                  <td>Entregado</td>
-                  <td><button style="background-color: #FFFF00; color: black; padding: 10px 20px; border: none; cursor: pointer;">Mostrar detalles</button></td>
-                </tr>
-                <tr>
-                  <td>Cliente c</td>
-                  <td>21/01/26</td>
-                  <td>15000</td>
-                  <td>Entregado</td>
-                  <td><button style="background-color: #FFFF00; color: black; padding: 10px 20px; border: none; cursor: pointer;">Mostrar detalles</button></td>
-                </tr>
+                @foreach($resPedido as $dato)
+                  <tr>
+                    <td>{{ $dato->id_ped_pk}}</td>
+                    <td>{{ $dato->fecha_ped}}</td>
+                    <td>{{ $dato->fechaEntrega_ped}}</td>
+                    <td> {{ $dato->estatus_ped}}</td>
+                  </tr>
+                @endforeach
               </tbody>
             </table>
 

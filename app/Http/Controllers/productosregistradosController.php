@@ -9,18 +9,19 @@ use Illuminate\Support\Facades\DB;
 
 class productosregistradosController extends Controller
 {
+    
     public function MiInterfaz7(){
         
         
         try {
-            $res2Usuario = DB::connection('mysql') 
+            $resProducto = DB::connection('mysql') 
             ->table('productos')
-            ->select('nombre_pro', 'color_pro', 'tipo_pro','formato_pro','CantidadPiezas_pro','contrasenia')
+            ->select('nombre_pro', 'color_pro', 'tipo_pro','formato_pro','CantidadPiezas_pro','unidadMedida', 'fechaCaducidad', 'precioUnitario_pro')
             ->get();
             
             $titulo="Grupo Morami";
             //return "Cargando ususarios";
-            return view("productosregistrados",compact('titulo'),compact('res2Usuario'));
+            return view("productosregistrados",compact('titulo'),compact('resProducto'));
         
          }
         catch(\Exception $e){

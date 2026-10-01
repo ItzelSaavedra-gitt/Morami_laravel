@@ -168,7 +168,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach($res2Usuario as $dato)
+                    @foreach($resProducto as $dato)
                   <tr>
                     <td>{{ $dato->nombre_pro}}</td>
                     <td>{{ $dato->color_pro}}</td>
