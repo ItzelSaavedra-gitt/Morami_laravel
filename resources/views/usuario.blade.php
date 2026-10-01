@@ -94,13 +94,13 @@
       <nav class="mt-2"> 
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"> 
           <li class='nav-item'>
-            <a href='index.php?menu=usuarios&opc=registro' class='nav-link'>
+            <a href='index.php?menu=usuarios&opc=registro' class='nav-link active'>
               <i class='nav-icon fas fa-users'></i>
               <p>Usuarios </p>
             </a>
           </li>
           <li class='nav-item'>
-            <a href='index.php?menu=productos&opc=registro' class='nav-link active'>
+            <a href='index.php?menu=productos&opc=registro' class='nav-link'>
               <i class='nav-icon fas fa-tachometer-alt'></i>
               <p>Productos </p>
             </a>
@@ -153,7 +153,6 @@
           <table class="table table-hover text-nowrap">
             <thead>
               <tr>
-                <th>id</th>
                 <th>Nombre </th>
                 <th>Apellido Paterno</th>
                 <th>Apellido Materno</th>
@@ -165,7 +164,6 @@
 
                 @foreach($res2Usuario as $dato)
                   <tr>
-                    <td>{{ $dato->id_usu_pk}}</td>
                     <td>{{ $dato->nombre}}</td>
                     <td>{{ $dato->apellidoPaterno}}</td>
                     <td>{{ $dato->apellidoMaterno}}</td>

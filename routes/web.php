@@ -18,6 +18,8 @@ Route:: get('/',function(){
     return view('welcome');
 });
 
+Route:: get('/usuarios',[usuarioController::class,'MiInterfaz1']);  //referencia al metodo ::  
+
 Route:: get('/cotizacion',[cotizacionController::class,'MiInterfaz']);  //referencia a metodo ::  
 
 Route:: get('/inventario',[inventarioController::class,'MiInterfaz2']);  //referencia a metodo ::  
@@ -40,5 +42,4 @@ Route:: get('/registro_productos',[registro_productosController::class,'MiInterf
 
 Route:: get('/registro_usu',[registro_usuController::class,'MiInterfaz11']);
 
-Route:: get('/usuarios',[usuarioController::class,'MiInterfaz12']);  //referencia al metodo ::  
 

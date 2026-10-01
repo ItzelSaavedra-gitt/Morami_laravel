@@ -158,42 +158,28 @@
                   <thead>
                     <tr>
                       <th>Nombre Producto</th>
-                      <th>Tipo de material</th>
                       <th>Color</th>
+                      <th>Tipo de material</th>
+                      <th> Formato</th>
+                      <th> Piezas</th>
                       <th>Unidad de medida</th>
-                      <th>Cantidad</th>
+                      <th> Fecha de caducidad</th>
                       <th>Precio Unitario</th>
-                      <th>Editar</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>Loseta</td>
-                      <td>Porcelanato Brillante</td>
-                      <td>Blanco Veteado</td>
-                      <td>30x60</td>
-                      <td>4</td>
-                      <td>$150.00</td>
-                      <td><button class="btn btn-sm btn-primary">Editar</button></td>
-                    </tr>
-                    <tr>
-                      <td>Pega azulejo</td>
-                      <td>Crest</td>
-                      <td>Blanco</td>
-                      <td>60x60</td>
-                      <td>5</td>
-                      <td>$280.00</td>
-                      <td><button class="btn btn-sm btn-primary">Editar</button></td>
-                    </tr>
-                    <tr>
-                      <td>Decorado</td>
-                      <td>Esmaltado</td>
-                      <td>Azul</td>
-                      <td>60x1.20</td>
-                      <td>120</td>
-                      <td>$350.00</td>
-                      <td><button class="btn btn-sm btn-primary">Editar</button></td>
-                    </tr>
+                    @foreach($res2Usuario as $dato)
+                  <tr>
+                    <td>{{ $dato->nombre_pro}}</td>
+                    <td>{{ $dato->color_pro}}</td>
+                    <td>{{ $dato->tipo_pro}}</td>
+                    <td>{{ $dato->formato_pro}}</td>
+                    <td> {{ $dato->CantidadPiezas_pro}}</td>
+                    <td> {{ $dato->unidadMedida}}</td>
+                    <td> {{ $dato->fechaCaducidad}}</td>
+                    <td> {{ $dato->precioUnitario_pro}}</td>
+                  </tr>
+                @endforeach
                   </tbody>
                 </table>
 
