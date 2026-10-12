@@ -26,6 +26,7 @@ Route:: get('/pedido',[pedidoController::class,'MiInterfaz6']);
 
 Route:: get('/cotizacion',[cotizacionController::class,'MiInterfaz']);  //referencia a metodo ::  
 
+
 Route:: get('/inventario',[inventarioController::class,'MiInterfaz2']);  //referencia a metodo ::  
 
 Route::get('/login',[loginController::class,'MiInterfaz3']);
@@ -41,5 +42,8 @@ Route:: get('/registro_pedidos',[registro_pedidosController::class,'MiInterfaz9'
 Route:: get('/registro_productos',[registro_productosController::class,'MiInterfaz10']);
 
 Route:: get('/registro_usu',[registro_usuController::class,'MiInterfaz11']);
+
+
+
 
 

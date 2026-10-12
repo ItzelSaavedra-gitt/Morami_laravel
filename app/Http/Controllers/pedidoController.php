@@ -21,9 +21,10 @@ class pedidoController
         
          }
         catch(\Exception $e){
-            response("Error al consultar la base de datos:".$e->getMessage(), 500);
+            return response("Error al consultar la base de datos: ".$e->getMessage(), 500);
             
         }
 
     }
 }
+
