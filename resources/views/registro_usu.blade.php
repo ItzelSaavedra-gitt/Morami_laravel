@@ -1,3 +1,4 @@
+@php $usuario = $usuario ?? null; @endphp
 <!doctype html>
 <html lang="es">
   <head>
@@ -10,26 +11,26 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback" />
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css" />
+    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}" />
     <!-- daterange picker -->
-    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}" />
     <!-- iCheck for checkboxes and radio inputs -->
-    <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css" />
+    <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}" />
     <!-- Bootstrap Color Picker -->
-    <link rel="stylesheet" href="plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css" />
+    <link rel="stylesheet" href="{{ asset('plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css') }}" />
     <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css" />
+    <link rel="stylesheet" href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}" />
     <!-- Select2 -->
-    <link rel="stylesheet" href="plugins/select2/css/select2.min.css" />
-    <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css" />
+    <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}" />
     <!-- Bootstrap4 Duallistbox -->
-    <link rel="stylesheet" href="plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css" />
+    <link rel="stylesheet" href="{{ asset('plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css') }}" />
     <!-- BS Stepper -->
-    <link rel="stylesheet" href="plugins/bs-stepper/css/bs-stepper.min.css" />
+    <link rel="stylesheet" href="{{ asset('plugins/bs-stepper/css/bs-stepper.min.css') }}" />
     <!-- dropzonejs -->
-    <link rel="stylesheet" href="plugins/dropzone/min/dropzone.min.css" />
+    <link rel="stylesheet" href="{{ asset('plugins/dropzone/min/dropzone.min.css') }}" />
     <!-- Theme style -->
-    <link rel="stylesheet" href="dist/css/adminlte.min.css" />
+    <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}" />
   </head>
   <body class="hold-transition sidebar-mini">
     <div class="wrapper">
@@ -88,7 +89,7 @@
         <!-- Brand Logo -->
         <a href="C:\laragon\www\Team_Proyecto_Morami\Views\panel.php" class="brand-link">
           <img
-            src="dist/img/Icono_MORAMI.jpeg"
+            src="{{ asset('dist/img/Icono_MORAMI.jpeg') }}"
             alt="GM Logo"
             class="brand-image img-circle elevation-3"
             style="opacity: 0.8" />
@@ -100,7 +101,7 @@
           <!-- Sidebar user (optional) -->
           <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-              <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image" />
+              <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image" />
             </div>
             <div class="info">
               <a href="#" class="d-block">Administrador</a>
@@ -155,7 +156,6 @@
         </div>
         <!-- /.sidebar -->
       </aside>
-    </div>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -164,7 +164,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>Usuarios registrados</h1>
+              <h1>{{ $usuario ? 'Editar usuario' : 'Registrar usuario' }}</h1>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -180,58 +180,86 @@
       <!-- Main content -->
       <section class="content">
         <div class="container-fluid">
-          <!-- CARD BODY -->
-          <div class="card-body">
-            <div class="row">
-              <!-- Columna izquierda -->
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>Nombre</label>
-                  <input type="text" class="form-control" name="nombre" placeholder="Ingresa el nombre" />
-                </div>
 
-                <div class="form-group">
-                  <label>Apellido Paterno</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="apellido_paterno"
-                    placeholder="Ingresa el apellido paterno" />
-                </div>
+          @if(session('error'))
+            <div class="alert alert-danger">{{ session('error') }}</div>
+          @endif
+          @if($errors->any())
+            <div class="alert alert-danger">
+              <ul class="mb-0">
+                @foreach($errors->all() as $e)
+                  <li>{{ $e }}</li>
+                @endforeach
+              </ul>
+            </div>
+          @endif
 
-                <div class="form-group">
-                  <label>Apellido Materno</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="apellido_materno"
-                    placeholder="Ingresa el apellido materno" />
+          {{-- Un solo formulario para crear y editar --}}
+          <form method="POST"
+                action="{{ $usuario ? route('usuarios.update', $usuario->id_usu_pk) : route('usuarios.store') }}">
+            @csrf
+            @if($usuario)
+              @method('PUT')
+            @endif
+
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="nombre">Nombre</label>
+                      <input type="text" id="nombre" class="form-control" name="nombre"
+                             value="{{ old('nombre', $usuario->nombre ?? '') }}"
+                             placeholder="Ingresa el nombre" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="apellido_paterno">Apellido Paterno</label>
+                      <input type="text" id="apellido_paterno" class="form-control" name="apellido_paterno"
+                             value="{{ old('apellido_paterno', $usuario->apellidoPaterno ?? '') }}"
+                             placeholder="Ingresa el apellido paterno" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="apellido_materno">Apellido Materno</label>
+                      <input type="text" id="apellido_materno" class="form-control" name="apellido_materno"
+                             value="{{ old('apellido_materno', $usuario->apellidoMaterno ?? '') }}"
+                             placeholder="Ingresa el apellido materno">
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="usuario">Nombre de usuario</label>
+                      <input type="text" id="usuario" class="form-control" name="usuario"
+                             value="{{ old('usuario', $usuario->usuario ?? '') }}"
+                             placeholder="Ingresa el usuario" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="password">Contraseña</label>
+                      <input type="password" id="password" class="form-control" name="password"
+                             placeholder=""
+                             {{ $usuario ? '' : 'required' }}>
+                    </div>
+                    <div class="form-group">
+                      <label for="id_rol">Rol</label>
+                      <select id="id_rol" name="id_rol" class="form-control" required>
+                        <option value="">Seleccione un rol</option>
+                        <option value="1" {{ old('id_rol', $usuario->id_rol ?? '') == 1 ? 'selected' : '' }}>Administrador</option>
+                        <option value="2" {{ old('id_rol', $usuario->id_rol ?? '') == 2 ? 'selected' : '' }}>Asesor de ventas</option>
+                      </select>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <!-- Columna derecha -->
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>Nombre de Usuario</label>
-                  <input type="text" class="form-control" name="usuario" placeholder="Ingresa el usuario" />
-                </div>
-
-                <div class="form-group">
-                  <label>Contraseña</label>
-                  <input type="password" class="form-control" name="password" placeholder="Ingresa la contraseña" />
-                </div>
-
-                <div class="form-group">
-                  <label>Rol</label>
-                  <select class="form-control" name="rol">
-                    <option value="">Seleccione un rol</option>
-                    <option value="administrador">Administrador</option>
-                    <option value="asesor">Asesor de ventas</option>
-                  </select>
-                </div>
+              <div class="card-footer">
+                <button type="submit" class="btn btn-success">
+                  <i class="fas fa-save"></i> {{ $usuario ? 'Guardar cambios' : 'Registrar usuario' }}
+                </button>
+                <a href="{{ route('usuarios.index') }}" class="btn btn-default">Cancelar</a>
               </div>
             </div>
-          </div>
+          </form>
+
         </div>
       </section>
     </div>
@@ -241,34 +269,35 @@
       <!-- Control sidebar content goes here -->
     </aside>
     <!-- /.control-sidebar -->
+    </div>
     <!-- ./wrapper -->
 
     <!-- jQuery -->
-    <script src="plugins/jquery/jquery.min.js"></script>
+    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     <!-- Bootstrap 4 -->
-    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- Select2 -->
-    <script src="plugins/select2/js/select2.full.min.js"></script>
+    <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
     <!-- Bootstrap4 Duallistbox -->
-    <script src="plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+    <script src="{{ asset('plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js') }}"></script>
     <!-- InputMask -->
-    <script src="plugins/moment/moment.min.js"></script>
-    <script src="plugins/inputmask/jquery.inputmask.min.js"></script>
+    <script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
+    <script src="{{ asset('plugins/inputmask/jquery.inputmask.min.js') }}"></script>
     <!-- date-range-picker -->
-    <script src="plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
     <!-- bootstrap color picker -->
-    <script src="plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+    <script src="{{ asset('plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js') }}"></script>
     <!-- Tempusdominus Bootstrap 4 -->
-    <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="{{ asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
     <!-- Bootstrap Switch -->
-    <script src="plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+    <script src="{{ asset('plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
     <!-- BS-Stepper -->
-    <script src="plugins/bs-stepper/js/bs-stepper.min.js"></script>
+    <script src="{{ asset('plugins/bs-stepper/js/bs-stepper.min.js') }}"></script>
     <!-- dropzonejs -->
-    <script src="plugins/dropzone/min/dropzone.min.js"></script>
+    <script src="{{ asset('plugins/dropzone/min/dropzone.min.js') }}"></script>
     <!-- AdminLTE App -->
-    <script src="dist/js/adminlte.min.js"></script>
+    <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src="dist/js/demo.js"></script>
+    <script src="{{ asset('dist/js/demo.js') }}"></script>
   </body>
 </html>

@@ -101,13 +101,13 @@
               </a>
             </li>
             <li class='nav-item'>
-              <a href='index.php?menu=productos&opc=registro' class='nav-link active'>
+              <a href='index.php?menu=productos&opc=registro' class='nav-link '>
                 <i class='nav-icon fas fa-tachometer-alt'></i>
                 <p>Productos</p>
               </a>
             </li>
             <li class='nav-item'>
-              <a href='index.php?menu=inventario&opc=registro' class='nav-link'>
+              <a href='index.php?menu=inventario&opc=registro' class='nav-link active'>
                 <i class='nav-icon fas fa-boxes'></i>
                 <p>Inventario</p>
               </a>

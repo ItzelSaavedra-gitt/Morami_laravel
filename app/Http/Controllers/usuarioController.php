@@ -11,7 +11,7 @@ use RecursiveArrayIterator;
 
 class usuarioController extends Controller
 {
-    private $columnas = ['id_usu_pk', 'nombre', 'apellidoPaterno', 'apellidoMaterno', 'usuario', 'contrasenia'];
+    private $columnas = ['id_usu_pk', 'nombre', 'apellidoPaterno', 'apellidoMaterno', 'usuario', 'contrasenia', 'id_rol'];
 
     // Verifica que haya sesión iniciada; si no, manda al login
     private function sinSesion(){
@@ -87,6 +87,7 @@ class usuarioController extends Controller
             'apellido_paterno' => 'required|string|max:100',
             'apellido_materno' => 'nullable|string|max:100',
             'usuario'          => 'required|string|max:100',
+            'id_rol'           => 'required|in:1,2',
             'password'         => 'required|string|min:4|max:100',
         ]);
 
@@ -103,6 +104,7 @@ class usuarioController extends Controller
                 'apellidoPaterno' => $request->apellido_paterno,
                 'apellidoMaterno' => $request->apellido_materno ?: null,
                 'usuario'         => $request->usuario,
+                'id_rol'          => $request->id_rol,
                 'contrasenia'     => Hash::make($request->password),
             ]);
         }
@@ -161,6 +163,7 @@ class usuarioController extends Controller
             'apellido_paterno' => 'required|string|max:100',
             'apellido_materno' => 'nullable|string|max:100',
             'usuario'          => 'required|string|max:100',
+            'id_rol'           => 'required|in:1,2',
             'password'         => 'nullable|string|min:4|max:100',
         ]);
 
@@ -178,6 +181,7 @@ class usuarioController extends Controller
                 'apellidoPaterno' => $request->apellido_paterno,
                 'apellidoMaterno' => $request->apellido_materno ?: null,
                 'usuario'         => $request->usuario,
+                'id_rol'          => $request->id_rol,
             ];
 
             // Si el campo contraseña se deja vacío, se conserva la actual
