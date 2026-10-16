@@ -101,7 +101,7 @@
             </a>
           </li>
           <li class='nav-item'>
-            <a href='index.php?menu=productos&opc=registro' class='nav-link active'>
+             <a href='index.php?menu=productos&opc=registro' class='nav-link'>
               <i class='nav-icon fas fa-tachometer-alt'></i>
               <p>Productos </p>
             </a>
@@ -113,7 +113,7 @@
             </a>
           </li>
           <li class='nav-item'>
-            <a href='index.php?menu=cotizaciones&opc=registro' class='nav-link'>
+             <a href='index.php?menu=cotizaciones&opc=registro' class="nav-link {{ request()->is('cotizacion', 'registro_cotizaciones') ? 'active' : '' }}">
               <i class='nav-icon fas fa-file-invoice'></i>
               <p> Cotizaciones</p>
             </a>

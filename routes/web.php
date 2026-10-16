@@ -18,7 +18,7 @@ Route:: get('/',function(){
     return view('welcome');
 });
 
-Route:: get('/usuarios',[usuarioController::class,'MiInterfaz1']);  //referencia al metodo ::  
+Route:: get('/usuarios',[usuarioController::class,'MiInterfaz1'])->name('usuarios.index');  //referencia al metodo ::  
 
 Route:: get('/productosre',[productosregistradosController::class,'MiInterfaz7']);
 
@@ -29,7 +29,11 @@ Route:: get('/cotizacion',[cotizacionController::class,'MiInterfaz']);  //refere
 
 Route:: get('/inventario',[inventarioController::class,'MiInterfaz2']);  //referencia a metodo ::  
 
-Route::get('/login',[loginController::class,'MiInterfaz3']);
+Route::get('/login',[loginController::class,'MiInterfaz3'])->name('login');
+
+Route::post('/login',[loginController::class,'Validar'])->name('login.validar');
+
+Route::get('/logout',[loginController::class,'Salir'])->name('login.salir');
 
 Route:: get('/panel',[panelController::class,'MiInterfaz4']);
 
@@ -43,7 +47,23 @@ Route:: get('/registro_productos',[registro_productosController::class,'MiInterf
 
 Route:: get('/registro_usu',[registro_usuController::class,'MiInterfaz11']);
 
+//Rutas para la creacion del CRUD usuarios
+Route::prefix('usuarios')->group(function () {
+    Route::get('/crear',[usuarioController::class,'vistacrear'])->name('usuarios.vista');
+    Route::post('/guardar',[usuarioController::class,'guardarusuario'])->name('usuarios.store');
+    Route::get('/buscar',[usuarioController::class,'buscarusuario'])->name('usuarios.search');
+    Route::get('/{id}/editar',[usuarioController::class,'vistaeditar'])->name('usuarios.show');
+    Route::get('/{id}',[usuarioController::class,'editarusuario'])->name('usuarios.edit');
+    Route::put('/{id}',[usuarioController::class,'actualizarusuario'])->name('usuarios.update');
+    Route::delete('/{id}',[usuarioController::class,'eliminarusuario'])->name('usuarios.destroy');
+});
 
 
+Route::post('/login', [
+    loginController::class, 'autenticar'
+])->name('login.autenticar');
 
-
+// Cerrar sesión
+Route::post('/cerrar-sesion', [
+    loginController::class, 'cerrarSesion'
+])->name('logout');
