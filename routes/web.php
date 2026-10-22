@@ -20,7 +20,7 @@ Route:: get('/',function(){
 
 Route:: get('/usuarios',[usuarioController::class,'MiInterfaz1'])->name('usuarios.index');  //referencia al metodo ::  
 
-Route:: get('/productosre',[productosregistradosController::class,'MiInterfaz7']);
+Route:: get('/productosre',[productosregistradosController::class,'MiInterfaz7'])->name('productos.index'); //referencia al metodo ::  
 
 Route:: get('/pedido',[pedidoController::class,'MiInterfaz6']);
 
@@ -56,6 +56,31 @@ Route::prefix('usuarios')->group(function () {
     Route::get('/{id}',[usuarioController::class,'editarusuario'])->name('usuarios.edit');
     Route::put('/{id}',[usuarioController::class,'actualizarusuario'])->name('usuarios.update');
     Route::delete('/{id}',[usuarioController::class,'eliminarusuario'])->name('usuarios.destroy');
+});
+
+//Rutas para la creacion del CRUD productos
+Route::prefix('productos')->group(function () {
+    Route::get('/crear',[productosregistradosController::class,'vistacrearproducto'])->name('productos.vista');
+    Route::post('/guardar',[productosregistradosController::class,'guardarproducto'])->name('productos.store');
+    Route::get('/buscar',[productosregistradosController::class,'buscarproducto'])->name('productos.search');
+    Route::get('/descontinuados',[productosregistradosController::class,'verdescontinuados'])->name('productos.descontinuados');
+    Route::get('/pdf',[productosregistradosController::class,'generarpdf'])->name('productos.pdf');
+    Route::get('/{id}/editar',[productosregistradosController::class,'vistaeditarproducto'])->name('productos.show');
+    Route::put('/{id}/reactivar',[productosregistradosController::class,'reactivarproducto'])->name('productos.reactivar');
+    Route::get('/{id}',[productosregistradosController::class,'editarproducto'])->name('productos.edit');
+    Route::put('/{id}',[productosregistradosController::class,'actualizarproducto'])->name('productos.update');
+    Route::delete('/{id}',[productosregistradosController::class,'eliminarproducto'])->name('productos.destroy');
+});
+
+//Rutas para la creacion del CRUD pedidos
+Route::prefix('pedidos')->group(function () {
+    Route::get('/crear',[pedidoController::class,'vistacrearpedido'])->name('pedidos.vista');
+    Route::post('/guardar',[pedidoController::class,'guardarpedido'])->name('pedidos.store');
+    Route::get('/buscar',[pedidoController::class,'buscarpedido'])->name('pedidos.search');
+    Route::get('/{id}/editar',[pedidoController::class,'vistaeditarpedido'])->name('pedidos.show');
+    Route::get('/{id}',[pedidoController::class,'editarpedido'])->name('pedidos.edit');
+    Route::put('/{id}',[pedidoController::class,'actualizarpedido'])->name('pedidos.update');
+    Route::delete('/{id}',[pedidoController::class,'eliminarpedido'])->name('pedidos.destroy');
 });
 
 

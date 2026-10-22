@@ -3,30 +3,21 @@
 <head>
   <meta charset='utf-8'>
   <meta name='viewport' content='width=device-width, initial-scale=1'>
-  <title>Grupo Morami| Registro usuarios </title>
-<!-- Google Font: Source Sans Pro -->
+  <title>Grupo Morami| Productos registrados </title>
+  <!-- Google Font: Source Sans Pro -->
   <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback'>
- <!-- Font Awesome -->
-  <link rel='stylesheet' href='plugins/fontawesome-free/css/all.min.css'>
-  <!-- daterange picker -->
-  <link rel='stylesheet' href='plugins/daterangepicker/daterangepicker.css'>
- <!-- iCheck for checkboxes and radio inputs -->
-  <link rel='stylesheet' href='plugins/icheck-bootstrap/icheck-bootstrap.min.css'>
-  <!-- Bootstrap Color Picker -->
-  <link rel='stylesheet' href='plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css'>
-   <!-- Tempusdominus Bootstrap 4 -->
-  <link rel='stylesheet' href='plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css'>
-  <!-- Select2 -->
-  <link rel='stylesheet' href='plugins/select2/css/select2.min.css'>
-  <link rel='stylesheet' href='plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css'>
- <!-- Bootstrap4 Duallistbox -->
-  <link rel='stylesheet' href='plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css'>
-   <!-- BS Stepper -->
-  <link rel='stylesheet' href='plugins/bs-stepper/css/bs-stepper.min.css'>
-  <!-- dropzonejs -->
-  <link rel='stylesheet' href='plugins/dropzone/min/dropzone.min.css'>
+  <link rel='stylesheet' href='{{ asset('plugins/fontawesome-free/css/all.min.css') }}'>
+  <link rel='stylesheet' href='{{ asset('plugins/daterangepicker/daterangepicker.css') }}'>
+  <link rel='stylesheet' href='{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}'>
+  <link rel='stylesheet' href='{{ asset('plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css') }}'>
+  <link rel='stylesheet' href='{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}'>
+  <link rel='stylesheet' href='{{ asset('plugins/select2/css/select2.min.css') }}'>
+  <link rel='stylesheet' href='{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}'>
+  <link rel='stylesheet' href='{{ asset('plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css') }}'>
+  <link rel='stylesheet' href='{{ asset('plugins/bs-stepper/css/bs-stepper.min.css') }}'>
+  <link rel='stylesheet' href='{{ asset('plugins/dropzone/min/dropzone.min.css') }}'>
   <!-- Theme style -->
-  <link rel='stylesheet' href='dist/css/adminlte.min.css'>
+  <link rel='stylesheet' href='{{ asset('dist/css/adminlte.min.css') }}'>
 </head>
 <body class='hold-transition sidebar-mini'>
 <div class='wrapper'>
@@ -36,10 +27,10 @@
         <a class='nav-link' data-widget='pushmenu' href='#' role='button'><i class='fas fa-bars'></i></a>
       </li>
       <li class='nav-item d-none d-sm-inline-block'>
-        <a href='../../index3.html' class='nav-link'>Home</a>
+        <a href='{{ url("/panel") }}' class='nav-link'>Home</a>
       </li>
     </ul>
-
+ 
     <ul class='navbar-nav ml-auto'>
       <li class='nav-item dropdown'>
         <a class='nav-link' data-toggle='dropdown' href='#'>
@@ -74,33 +65,33 @@
       </li>
     </ul>
   </nav>
-
+ 
   <aside class='main-sidebar sidebar-dark-primary elevation-4'>
     <a href='#' class='brand-link'>
-      <img src='dist/img/Icono_MORAMI.jpeg' alt='GM Logo' class='brand-image img-circle elevation-3' style='opacity: .8'>
+      <img src='{{ asset('dist/img/Icono_MORAMI.jpeg') }}' alt='GM Logo' class='brand-image img-circle elevation-3' style='opacity: .8'>
       <span class='brand-text font-weight-light'>Grupo Morami</span>
     </a>
-
+ 
     <div class='sidebar'>
       <div class='user-panel mt-3 pb-3 mb-3 d-flex'>
         <div class='image'>
-          <img src='dist/img/user2-160x160.jpg' class='img-circle elevation-2' alt='User Image'>
+          <img src='{{ asset('dist/img/user2-160x160.jpg') }}' class='img-circle elevation-2' alt='User Image'>
         </div>
         <div class='info'>
           <a href='#' class='d-block'>Administrador</a>
         </div>
       </div>
-
+ 
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
           <li class='nav-item'>
-            <a href='index.php?menu=usuarios&opc=registro' class='nav-link'>
+            <a href='{{ url("/usuarios") }}' class='nav-link'>
               <i class='nav-icon fas fa-users'></i>
               <p>Usuarios </p>
             </a>
           </li>
           <li class='nav-item'>
-            <a href='index.php?menu=productos&opc=registro' class='nav-link active'>
+            <a href='{{ url("/productosre") }}' class='nav-link active'>
               <i class='nav-icon fas fa-tachometer-alt'></i>
               <p>Productos </p>
             </a>
@@ -133,85 +124,143 @@
       </nav>
     </div>
   </aside>
-
+ 
   <div class="content-wrapper">
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Gestión de Productos</h1>
+            <h1>{{ !empty($descontinuados) ? 'Productos Descontinuados' : 'Productos Registrados' }}</h1>
           </div>
         </div>
       </div>
     </section>
-
+ 
     <section class="content">
       <div class="container-fluid">
-        <div class="row">
-          <div class="col-12">
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Listado de Productos</h3>
-              </div>
-              <div class="card-body">
-                <table id="example1" class="table table-bordered table-striped">
-                  <thead>
-                    <tr>
-                      <th>Nombre Producto</th>
-                      <th>Color</th>
-                      <th>Tipo de material</th>
-                      <th> Formato</th>
-                      <th> Piezas</th>
-                      <th>Unidad de medida</th>
-                      <th> Fecha de caducidad</th>
-                      <th>Precio Unitario</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    @foreach($resProducto as $dato)
+ 
+        {{-- Mensajes que manda el controlador --}}
+        @if(session('ok'))
+          <div class="alert alert-success">{{ session('ok') }}</div>
+        @endif
+        @if(session('error'))
+          <div class="alert alert-danger">{{ session('error') }}</div>
+        @endif
+ 
+        <div class="card">
+          <div class="card-header">
+            <a href="{{ route('productos.vista') }}" class="btn btn-success">
+              <i class="fas fa-plus"></i> Registrar Producto
+            </a>
+ 
+            @if(!empty($descontinuados))
+              <a href="{{ route('productos.index') }}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Ver activos
+              </a>
+            @else
+              <a href="{{ route('productos.descontinuados') }}" class="btn btn-secondary">
+                <i class="fas fa-archive"></i> Ver descontinuados
+              </a>
+            @endif
+ 
+            <a href="{{ route('productos.pdf') }}" target="_blank" class="btn btn-danger float-right">
+              Generar PDF
+            </a>
+          </div>
+ 
+          <div class="card-body table-responsive p-0">
+            <table class="table table-striped text-nowrap">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Color</th>
+                  <th>Tipo</th>
+                  <th>Formato</th>
+                  <th>Piezas</th>
+                  <th>Unidad de Medida</th>
+                  <th>Fecha de caducidad</th>
+                  <th>Precio Unitario</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                @forelse($resProducto as $dato)
                   <tr>
-                    <td>{{ $dato->nombre_pro}}</td>
-                    <td>{{ $dato->color_pro}}</td>
-                    <td>{{ $dato->tipo_pro}}</td>
-                    <td>{{ $dato->formato_pro}}</td>
-                    <td> {{ $dato->CantidadPiezas_pro}}</td>
-                    <td> {{ $dato->unidadMedida}}</td>
-                    <td> {{ $dato->fechaCaducidad}}</td>
-                    <td> {{ $dato->precioUnitario_pro}}</td>
+                    <td>{{ $dato->nombre_pro }}</td>
+                    <td>{{ $dato->color_pro }}</td>
+                    <td>{{ $dato->tipo_pro }}</td>
+                    <td>{{ $dato->formato_pro }}</td>
+                    <td>{{ $dato->CantidadPiezas_pro }}</td>
+                    <td>{{ $dato->unidadMedida }}</td>
+                    <td>{{ $dato->fechaCaducidad }}</td>
+                    <td>${{ number_format((float) $dato->precioUnitario_pro, 2) }}</td>
+                    <td>
+                      <a href="{{ route('productos.show', $dato->id_pro_pk) }}"
+                         class="btn btn-sm btn-primary" title="Editar">
+                        <i class="fas fa-edit"></i>
+                      </a>
+ 
+                      @if(!empty($descontinuados))
+                        <form action="{{ route('productos.reactivar', $dato->id_pro_pk) }}" method="POST"
+                              class="d-inline"
+                              onsubmit="return confirm('¿Reactivar este producto?')">
+                          @csrf
+                          @method('PUT')
+                          <button type="submit" class="btn btn-sm btn-success" title="Reactivar">
+                            <i class="fas fa-undo"></i>
+                          </button>
+                        </form>
+                      @else
+                        <form action="{{ route('productos.destroy', $dato->id_pro_pk) }}" method="POST"
+                              class="d-inline"
+                              onsubmit="return confirm('¿Enviar este producto a descontinuados?')">
+                          @csrf
+                          @method('DELETE')
+                          <button type="submit" class="btn btn-sm btn-danger" title="Descontinuar">
+                            <i class="fas fa-archive"></i>
+                          </button>
+                        </form>
+                      @endif
+                    </td>
                   </tr>
-                @endforeach
-                  </tbody>
-                </table>
-
-                <div class="mt-3">
-                  <button style="background-color: #FFFF00; color: black; padding: 10px 20px; border-radius: 5px; border: none; cursor: pointer; font-weight: bold;" 
-                          onclick="alert('¡Ver el registro de otros productos!')"> 
-                    Ver el registro de otros productos
-                  </button>
-
-                  <button class="boton-casa btn btn-success ml-2">
-                    <i class="fas fa-home"></i> Inicio
-                  </button>
-                </div>
-              </div></div></div></div></div></section></div><footer class="main-footer">
-    <strong>Copyright &copy; 2024 Grupo Morami.</strong> Todos los derechos reservados.
-  </footer>
-
+                @empty
+                  <tr>
+                    <td colspan="9" class="text-center text-muted py-4">
+                      @if(!empty($descontinuados))
+                        No hay productos descontinuados.
+                      @else
+                        Aún no hay productos. Usa "Registrar Producto" para agregar el primero.
+                      @endif
+                    </td>
+                  </tr>
+                @endforelse
+              </tbody>
+            </table>
+          </div>
+          <div class="card-footer"></div>
+        </div>
+ 
+      </div>
+    </section>
+  </div>
+ 
   <aside class='control-sidebar control-sidebar-dark'></aside>
-</div><script src='plugins/jquery/jquery.min.js'></script>
-<script src='plugins/bootstrap/js/bootstrap.bundle.min.js'></script>
-<script src='plugins/select2/js/select2.full.min.js'></script>
-<script src='plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js'></script>
-<script src='plugins/moment/moment.min.js'></script>
-<script src='plugins/inputmask/jquery.inputmask.min.js'></script>
-<script src='plugins/daterangepicker/daterangepicker.js'></script>
-<script src='plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js'></script>
-<script src='plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js'></script>
-<script src='plugins/bootstrap-switch/js/bootstrap-switch.min.js'></script>
-<script src='plugins/bs-stepper/js/bs-stepper.min.js'></script>
-<script src='plugins/dropzone/min/dropzone.min.js'></script>
-<script src='dist/js/adminlte.min.js'></script>
-<script src='dist/js/demo.js'></script>
-
+</div>
+<script src='{{ asset('plugins/jquery/jquery.min.js') }}'></script>
+<script src='{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}'></script>
+<script src='{{ asset('plugins/select2/js/select2.full.min.js') }}'></script>
+<script src='{{ asset('plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js') }}'></script>
+<script src='{{ asset('plugins/moment/moment.min.js') }}'></script>
+<script src='{{ asset('plugins/inputmask/jquery.inputmask.min.js') }}'></script>
+<script src='{{ asset('plugins/daterangepicker/daterangepicker.js') }}'></script>
+<script src='{{ asset('plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js') }}'></script>
+<script src='{{ asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}'></script>
+<script src='{{ asset('plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}'></script>
+<script src='{{ asset('plugins/bs-stepper/js/bs-stepper.min.js') }}'></script>
+<script src='{{ asset('plugins/dropzone/min/dropzone.min.js') }}'></script>
+<script src='{{ asset('dist/js/adminlte.min.js') }}'></script>
+<script src='{{ asset('dist/js/demo.js') }}'></script>
+ 
 </body>
 </html>
+ 
