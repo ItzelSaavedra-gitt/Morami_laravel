@@ -78,50 +78,13 @@
           <img src='{{ asset('dist/img/user2-160x160.jpg') }}' class='img-circle elevation-2' alt='User Image'>
         </div>
         <div class='info'>
-          <a href='#' class='d-block'>Administrador</a>
+          <a href="#" class="d-block">{{ session('usuario_nombre', 'Administrador') }}</a>
         </div>
       </div>
  
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
-          <li class='nav-item'>
-            <a href='{{ url("/usuarios") }}' class='nav-link'>
-              <i class='nav-icon fas fa-users'></i>
-              <p>Usuarios </p>
-            </a>
-          </li>
-          <li class='nav-item'>
-            <a href='{{ url("/productosre") }}' class='nav-link active'>
-              <i class='nav-icon fas fa-tachometer-alt'></i>
-              <p>Productos </p>
-            </a>
-          </li>
-          <li class='nav-item'>
-            <a href='index.php?menu=inventario&opc=registro' class='nav-link'>
-              <i class='nav-icon fas fa-boxes'></i>
-              <p> Inventario</p>
-            </a>
-          </li>
-          <li class='nav-item'>
-            <a href='index.php?menu=cotizaciones&opc=registro' class='nav-link'>
-              <i class='nav-icon fas fa-file-invoice'></i>
-              <p> Cotizaciones</p>
-            </a>
-          </li>
-          <li class='nav-item'>
-            <a href='index.php?menu=pedidos&opc=registro' class='nav-link'>
-              <i class='nav-icon fas fa-shopping-cart'></i>
-              <p> Pedidos </p>
-            </a>
-          </li>
-          <li class='nav-item'>
-            <a href='pedidos.html' class='nav-link'>
-              <i class='nav-icon fas fa-cog'></i>
-              <p>Configuraciones generales</p>
-            </a>
-          </li>
-        </ul>
-      </nav>
+      @include('MenuLateralView')
+
+
     </div>
   </aside>
  

@@ -71,7 +71,7 @@ class loginController
         $request->session()->regenerate();
 
         Session::put('usuario_id', $registro->id_usu_pk);
-        Session::put('usuario_nombre', $registro->usuario);
+        Session::put('usuario_nombre', trim($registro->nombre . ' ' . $registro->apellidoPaterno));
 
         return redirect('/panel')
             ->with('success', 'Inicio de sesión correcto.');

@@ -23,7 +23,7 @@
 
     <div class="login-logo">
         <a href="{{ url('/login') }}">
-            <b>Inicio de</b> Sesión
+            <b>Inicio de Sesión</b> 
         </a>
     </div>
 

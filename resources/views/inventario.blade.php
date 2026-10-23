@@ -1,33 +1,35 @@
 <!DOCTYPE html>
 <html lang='es'>
+
 <head>
   <meta charset='utf-8'>
   <meta name='viewport' content='width=device-width, initial-scale=1'>
   <title>Grupo Morami | Registro usuarios </title>
-<!-- Google Font: Source Sans Pro --> 
+  <!-- Google Font: Source Sans Pro -->
   <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback'>
- <!-- Font Awesome --> 
+  <!-- Font Awesome -->
   <link rel='stylesheet' href='plugins/fontawesome-free/css/all.min.css'>
   <!-- daterange picker -->
   <link rel='stylesheet' href='plugins/daterangepicker/daterangepicker.css'>
-   <!-- iCheck for checkboxes and radio inputs -->
+  <!-- iCheck for checkboxes and radio inputs -->
   <link rel='stylesheet' href='plugins/icheck-bootstrap/icheck-bootstrap.min.css'>
-   <!-- Bootstrap Color Picker -->
+  <!-- Bootstrap Color Picker -->
   <link rel='stylesheet' href='plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css'>
   <!-- Tempusdominus Bootstrap 4 -->
   <link rel='stylesheet' href='plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css'>
   <!-- Select2 -->
   <link rel='stylesheet' href='plugins/select2/css/select2.min.css'>
   <link rel='stylesheet' href='plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css'>
-   <!-- Bootstrap4 Duallistbox -->
+  <!-- Bootstrap4 Duallistbox -->
   <link rel='stylesheet' href='plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css'>
- <!-- BS Stepper -->
+  <!-- BS Stepper -->
   <link rel='stylesheet' href='plugins/bs-stepper/css/bs-stepper.min.css'>
   <!-- dropzonejs -->
   <link rel='stylesheet' href='plugins/dropzone/min/dropzone.min.css'>
   <!-- Theme style -->
   <link rel='stylesheet' href='dist/css/adminlte.min.css'>
 </head>
+
 <body class='hold-transition sidebar-mini'>
   <div class='wrapper'>
 
@@ -55,15 +57,15 @@
               <span class='float-right text-muted text-sm'>3 mins</span>
             </a>
             <div class='dropdown-divider'></div>
-          <a href='#' class='dropdown-item'>
-            <i class='fas fa-users mr-2'></i> 3 pedidos pendientes
-            <span class='float-right text-muted text-sm'>12 hours</span>
-          </a>
-          <div class='dropdown-divider'></div>
-          <a href='#' class='dropdown-item'>
-            <i class='fas fa-file mr-2'></i> Haz registrado nuevos productos
-            <span class='float-right text-muted text-sm'>2 days</span>
-          </a>
+            <a href='#' class='dropdown-item'>
+              <i class='fas fa-users mr-2'></i> 3 pedidos pendientes
+              <span class='float-right text-muted text-sm'>12 hours</span>
+            </a>
+            <div class='dropdown-divider'></div>
+            <a href='#' class='dropdown-item'>
+              <i class='fas fa-file mr-2'></i> Haz registrado nuevos productos
+              <span class='float-right text-muted text-sm'>2 days</span>
+            </a>
             <div class='dropdown-divider'></div>
             <a href='#' class='dropdown-item dropdown-footer'>Ver todas las Notificationes</a>
           </div>
@@ -76,62 +78,28 @@
       </ul>
     </nav>
 
-    <aside class='main-sidebar sidebar-dark-primary elevation-4'>
-      <a href='#' class='brand-link'>
-        <img src='dist/img/Icono_MORAMI.jpeg' alt='GM Logo' class='brand-image img-circle elevation-3' style='opacity: .8'>
-        <span class='brand-text font-weight-light'>Grupo Morami</span>
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+      <a href="{{ url('/panel') }}" class="brand-link">
+        <img
+          src="{{ asset('dist/img/Icono_MORAMI.jpeg') }}"
+          alt="GM Logo"
+          class="brand-image img-circle elevation-3"
+          style="opacity: 0.8" />
+        <span class="brand-text font-weight-light">Grupo Morami</span>
       </a>
 
-      <div class='sidebar'>
-        <div class='user-panel mt-3 pb-3 mb-3 d-flex'>
-          <div class='image'>
-            <img src='dist/img/user2-160x160.jpg' class='img-circle elevation-2' alt='User Image'>
+      <div class="sidebar">
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+          <div class="image">
+            <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image" />
           </div>
-          <div class='info'>
-            <a href='#' class='d-block'>Administrador</a>
+          <div class="info">
+            <a href="#" class="d-block">{{ session('usuario_nombre', 'Administrador') }}</a>
           </div>
         </div>
 
-        <nav class="mt-2">
-          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
-            <li class='nav-item'>
-              <a href='index.php?menu=usuarios&opc=registro' class='nav-link'>
-                <i class='nav-icon fas fa-users'></i>
-                <p>Usuarios</p>
-              </a>
-            </li>
-            <li class='nav-item'>
-              <a href='index.php?menu=productos&opc=registro' class='nav-link '>
-                <i class='nav-icon fas fa-tachometer-alt'></i>
-                <p>Productos</p>
-              </a>
-            </li>
-            <li class='nav-item'>
-              <a href='index.php?menu=inventario&opc=registro' class='nav-link active'>
-                <i class='nav-icon fas fa-boxes'></i>
-                <p>Inventario</p>
-              </a>
-            </li>
-            <li class='nav-item'>
-              <a href='index.php?menu=cotizaciones&opc=registro' class='nav-link'>
-                <i class='nav-icon fas fa-file-invoice'></i>
-                <p>Cotizaciones</p>
-              </a>
-            </li>
-            <li class='nav-item'>
-              <a href='index.php?menu=pedidos&opc=registro' class='nav-link'>
-                <i class='nav-icon fas fa-shopping-cart'></i>
-                <p>Pedidos</p>
-              </a>
-            </li>
-            <li class='nav-item'>
-              <a href='#' class='nav-link'>
-                <i class='nav-icon fas fa-cog'></i>
-                <p>Configuraciones</p>
-              </a>
-            </li>
-          </ul>
-        </nav>
+        @include('MenuLateralView')
+
       </div>
     </aside>
 
@@ -215,8 +183,12 @@
                   Regresar
                 </button>
               </div>
-            </div> </div> </div> </section>
-    </div> <footer class="main-footer">
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <footer class="main-footer">
       <div class="float-right d-none d-sm-block">
         <b>Version</b> 3.1.0
       </div>
@@ -224,10 +196,12 @@
     </footer>
 
     <aside class="control-sidebar control-sidebar-dark"></aside>
-  </div> <script src='plugins/jquery/jquery.min.js'></script>
+  </div>
+  <script src='plugins/jquery/jquery.min.js'></script>
   <script src='plugins/bootstrap/js/bootstrap.bundle.min.js'></script>
   <script src='plugins/select2/js/select2.full.min.js'></script>
   <script src='plugins/moment/moment.min.js'></script>
   <script src='dist/js/adminlte.min.js'></script>
 </body>
+
 </html>

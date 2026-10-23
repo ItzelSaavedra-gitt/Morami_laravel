@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Models;
+namespace app\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class usuariolModel extends Model
 {
-    use HasFactory;
+    protected $connection = 'mysql';
+    protected $table = 'usuarios';
+    protected $primaryKey = 'id_usu_pk';
+    public $timestamps = false;
 }
