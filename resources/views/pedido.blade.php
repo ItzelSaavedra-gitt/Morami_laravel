@@ -139,8 +139,9 @@
                       <label>Filtrar por estatus</label>
                       <select class="form-control" name="estatus" onchange="document.getElementById('formFiltros').submit()">
                         <option value="">Todo</option>
-                        <option value="Pendiente" {{ ($filtroEstatus ?? '') == 'Pendiente' ? 'selected' : '' }}>Pendiente</option>
-                        <option value="Entregado" {{ ($filtroEstatus ?? '') == 'Entregado' ? 'selected' : '' }}>Entregado</option>
+                        @foreach(['Pendiente', 'Proceso', 'Completado', 'Entregado'] as $est)
+                        <option value="{{ $est }}" {{ ($filtroEstatus ?? '') == $est ? 'selected' : '' }}>{{ $est }}</option>
+                        @endforeach
                       </select>
                     </div>
                   </div>
@@ -165,10 +166,12 @@
                       <td>{{ date('d/m/y', strtotime($dato->fecha_ped)) }}</td>
                       <td>${{ number_format((float) $dato->total_ped, 2) }}</td>
                       <td>
-                        @if($dato->estatus_ped == 'Entregado')
-                        <span class="badge badge-success">Entregado</span>
+                        @if(in_array($dato->estatus_ped, ['Entregado', 'Completado']))
+                        <span class="badge badge-success">{{ $dato->estatus_ped }}</span>
                         @elseif($dato->estatus_ped == 'Pendiente')
                         <span class="badge badge-warning">Pendiente</span>
+                        @elseif($dato->estatus_ped == 'Proceso')
+                        <span class="badge badge-info">Proceso</span>
                         @else
                         <span class="badge badge-secondary">{{ $dato->estatus_ped }}</span>
                         @endif
@@ -287,6 +290,7 @@
         })
         .then(function(d) {
           var p = d.pedido,
+            c = d.cliente || {},
             filas = '',
             subtotal = 0;
           if (!p) {
@@ -304,11 +308,14 @@
             filas = '<tr><td colspan="7" class="text-center text-muted">Sin productos registrados</td></tr>';
           }
 
-          var cliente = [p.nombreCliente_ped, p.apellidoP_ped, p.apellidoM_ped].filter(Boolean).join(' ');
+          // Nombre completo del cliente (ya viene unido desde el servidor)
+          var cliente = p.nombreCliente_ped || '';
+          var direccion = [c.direccion, c.municipio].filter(Boolean).join(', ');
+
           $('#detalleCuerpo').html(
             '<div class="row mb-3">' +
-            '<div class="col-md-6"><b>Cliente:</b> ' + esc(cliente) + '<br><b>Teléfono:</b> ' + esc(p.telefono_ped) +
-            '<br><b>Dirección:</b> ' + esc(p.direccion_ped) + ', ' + esc(p.municipio_ped) + '</div>' +
+            '<div class="col-md-6"><b>Cliente:</b> ' + esc(cliente) + '<br><b>Teléfono:</b> ' + esc(c.telefono || '-') +
+            '<br><b>Dirección:</b> ' + esc(direccion || '-') + '</div>' +
             '<div class="col-md-6"><b>Vendedor:</b> ' + esc(p.vendedor_ped) + '<br><b>Fecha de solicitud:</b> ' + fecha(p.fecha_ped) +
             '<br><b>Fecha de entrega:</b> ' + fecha(p.fechaEntrega_ped) + '<br><b>Estatus:</b> ' + esc(p.estatus_ped) + '</div>' +
             '</div>' +
@@ -316,9 +323,7 @@
             '<th>No</th><th>Producto</th><th>Tipo</th><th>Unidad</th><th>Cantidad</th><th>Precio</th><th>Subtotal</th>' +
             '</tr></thead><tbody>' + filas + '</tbody></table></div>' +
             '<table class="table table-sm w-50 ml-auto">' +
-            '<tr><th>Subtotal:</th><td class="text-right">' + dinero(subtotal) + '</td></tr>' +
-            '<tr><th>Fletes:</th><td class="text-right">' + dinero(p.fletes_ped) + '</td></tr>' +
-            '<tr><th>Total:</th><td class="text-right"><b>' + dinero(p.total_ped) + '</b></td></tr>' +
+            '<tr><th>Total:</th><td class="text-right"><b>' + dinero(subtotal) + '</b></td></tr>' +
             '</table>'
           );
         })

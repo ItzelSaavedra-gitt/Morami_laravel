@@ -104,7 +104,22 @@
 
       <section class="content">
         <div class="container-fluid">
+
+          {{-- Mensajes que manda el controlador --}}
+          @if(session('ok'))
+          <div class="alert alert-success">{{ session('ok') }}</div>
+          @endif
+          @if(session('error'))
+          <div class="alert alert-danger">{{ session('error') }}</div>
+          @endif
+
           <div class="card">
+            <div class="card-header">
+              <a href="{{ route('cotizaciones.vista') }}" class="btn btn-success">
+                <i class="fas fa-plus"></i> Nueva Cotización
+              </a>
+            </div>
+
             <div class="card-body">
               <div class="mb-3">
                 <form action="{{ url('/cotizacion') }}" method="get" class="form-inline">
@@ -127,6 +142,7 @@
                       <th>Vendedor</th>
                       <th>Vencimiento</th>
                       <th class="text-right">Total</th>
+                      <th class="text-center">Acciones</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -138,10 +154,26 @@
                       <td>{{ $fila->vendedor_cot }}</td>
                       <td>{{ $fila->fechaVencimiento_cot }}</td>
                       <td class="text-right">$ {{ number_format($fila->total_cot, 2) }}</td>
+                      <td class="text-center text-nowrap">
+                        <a href="{{ route('cotizaciones.show', $fila->id_cot_pk) }}"
+                          class="btn btn-sm btn-primary" title="Editar">
+                          <i class="fas fa-edit"></i>
+                        </a>
+
+                        <form action="{{ route('cotizaciones.destroy', $fila->id_cot_pk) }}" method="POST"
+                          class="d-inline"
+                          onsubmit="return confirm('¿Eliminar esta cotización?')">
+                          @csrf
+                          @method('DELETE')
+                          <button type="submit" class="btn btn-sm btn-danger" title="Eliminar">
+                            <i class="fas fa-trash"></i>
+                          </button>
+                        </form>
+                      </td>
                     </tr>
                     @empty
                     <tr>
-                      <td colspan="6" class="text-center text-muted py-4">
+                      <td colspan="7" class="text-center text-muted py-4">
                         @if(!empty($busqueda))
                         No se encontraron cotizaciones para "{{ $busqueda }}".
                         @else
@@ -156,10 +188,6 @@
 
               <button onclick="history.back()" style="background-color: #28a745; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
                 Regresar
-              </button>
-
-              <button style="background-color: #FFD700; color: black; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 16px;">
-                + Nueva Cotización
               </button>
             </div>
           </div>

@@ -22,7 +22,7 @@ Route:: get('/usuarios',[usuarioController::class,'MiInterfaz1'])->name('usuario
 
 Route:: get('/productosre',[productosregistradosController::class,'MiInterfaz7'])->name('productos.index'); //referencia al metodo ::  
 
-Route:: get('/pedido',[pedidoController::class,'MiInterfaz6']);
+Route::get('/pedido', [pedidoController::class, 'MiInterfaz6'])->name('pedidos.index');
 
 Route:: get('/cotizacion',[cotizacionController::class,'MiInterfaz']);  //referencia a metodo ::  
 
@@ -74,13 +74,23 @@ Route::prefix('productos')->group(function () {
 
 //Rutas para la creacion del CRUD pedidos
 Route::prefix('pedidos')->group(function () {
-    Route::get('/crear',[pedidoController::class,'vistacrearpedido'])->name('pedidos.vista');
-    Route::post('/guardar',[pedidoController::class,'guardarpedido'])->name('pedidos.store');
-    Route::get('/buscar',[pedidoController::class,'buscarpedido'])->name('pedidos.search');
-    Route::get('/{id}/editar',[pedidoController::class,'vistaeditarpedido'])->name('pedidos.show');
-    Route::get('/{id}',[pedidoController::class,'editarpedido'])->name('pedidos.edit');
-    Route::put('/{id}',[pedidoController::class,'actualizarpedido'])->name('pedidos.update');
-    Route::delete('/{id}',[pedidoController::class,'eliminarpedido'])->name('pedidos.destroy');
+    Route::get('/buscar', [pedidoController::class, 'buscarpedido'])->name('pedidos.search');
+    Route::get('/crear', [pedidoController::class, 'vistacrearpedido'])->name('pedidos.vista');
+    Route::post('/guardar', [pedidoController::class, 'guardarpedido'])->name('pedidos.store');
+
+    Route::get('/{id}/detalle', [pedidoController::class, 'editarpedido'])->name('pedidos.edit');
+    Route::get('/{id}/editar', [pedidoController::class, 'vistaeditarpedido'])->name('pedidos.show');
+    Route::put('/{id}', [pedidoController::class, 'actualizarpedido'])->name('pedidos.update');
+    Route::delete('/{id}', [pedidoController::class, 'eliminarpedido'])->name('pedidos.destroy');
+});
+
+// Rutas para la creacion del CRUD cotizaciones
+Route::prefix('cotizaciones')->group(function () {
+    Route::get('/crear', [registro_cotizacionesController::class, 'vistacrearcotizacion'])->name('cotizaciones.vista');
+    Route::post('/guardar', [registro_cotizacionesController::class, 'guardarcotizacion'])->name('cotizaciones.store');
+    Route::get('/{id}/editar', [registro_cotizacionesController::class, 'vistaeditarcotizacion'])->name('cotizaciones.show');
+    Route::put('/{id}', [registro_cotizacionesController::class, 'actualizarcotizacion'])->name('cotizaciones.update');
+    Route::delete('/{id}', [registro_cotizacionesController::class, 'eliminarcotizacion'])->name('cotizaciones.destroy');
 });
 
 

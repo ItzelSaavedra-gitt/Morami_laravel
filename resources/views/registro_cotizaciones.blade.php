@@ -4,51 +4,37 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Grupo Morami| Registro de cotizaciones </title>
+    <title>Grupo Morami | {{ !empty($cotizacion) ? 'Editar cotización' : 'Registro de nuevas cotizaciones' }}</title>
 
-    <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-    <!-- daterange picker -->
-    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
-    <!-- iCheck for checkboxes and radio inputs -->
-    <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-    <!-- Bootstrap Color Picker -->
-    <link rel="stylesheet" href="plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
-    <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-    <!-- Select2 -->
-    <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
-    <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-    <!-- Bootstrap4 Duallistbox -->
-    <link rel="stylesheet" href="plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
-    <!-- BS Stepper -->
-    <link rel="stylesheet" href="plugins/bs-stepper/css/bs-stepper.min.css">
-    <!-- dropzonejs -->
-    <link rel="stylesheet" href="plugins/dropzone/min/dropzone.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/bs-stepper/css/bs-stepper.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/dropzone/min/dropzone.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
 </head>
 
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
+
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-            <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="../../index3.html" class="nav-link">Home</a>
-
+                    <a href="{{ url('/panel') }}" class="nav-link">Home</a>
+                </li>
             </ul>
 
-            <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
-
-                <!-- Notifications Dropdown Menu -->
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
                         <i class="far fa-bell"></i>
@@ -72,7 +58,7 @@
                             <span class="float-right text-muted text-sm">2 days</span>
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item dropdown-footer">Ver todas las Notificationes</a>
+                        <a href="#" class="dropdown-item dropdown-footer">Ver todas las Notificaciones</a>
                     </div>
                 </li>
                 <li class="nav-item">
@@ -83,6 +69,7 @@
             </ul>
         </nav>
         <!-- /.navbar -->
+
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <a href="{{ url('/panel') }}" class="brand-link">
                 <img
@@ -107,317 +94,384 @@
 
             </div>
         </aside>
-    </div>
 
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1>Registro de nuevas cotizaciones</h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Registro de nuevas cotizaciones</li>
-                        </ol>
+        <!-- Content Wrapper -->
+        <div class="content-wrapper">
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-12">
+                            <h1>{{ !empty($cotizacion) ? 'Editar cotización' : 'Registro de nuevas cotizaciones' }}</h1>
+                        </div>
                     </div>
                 </div>
-            </div><!-- /.container-fluid -->
-        </section>
+            </section>
 
-        <!-- Main content -->
-        <section class="content">
-            <div class="container-fluid">
-                <!-- CARD BODY -->
-                <div class="card-body">
-                    <div class="row">
+            <section class="content">
+                <div class="container-fluid">
 
-                        <div class="col-md-6">
+                    @if(session('error'))
+                    <div class="alert alert-danger">{{ session('error') }}</div>
+                    @endif
+                    @if($errors->any())
+                    <div class="alert alert-danger">
+                        <ul class="mb-0">
+                            @foreach($errors->all() as $e)
+                            <li>{{ $e }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
 
-                            <div class="form-group">
-                                <label>Fecha de solicitud</label>
-                                <div class="input-group date" id="fechaCaducidadPicker" data-target-input="nearest">
-                                    <input type="text" class="form-control datetimepicker-input" data-target="#fechaCaducidadPicker" name="caducidad" />
-                                    <div class="input-group-append" data-target="#fechaCaducidadPicker" data-toggle="datetimepicker">
-                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    <form id="formCotizacion" method="post"
+                        action="{{ !empty($cotizacion) ? route('cotizaciones.update', $cotizacion->id_cot_pk) : route('cotizaciones.store') }}">
+                        @csrf
+                        @if(!empty($cotizacion))
+                        @method('PUT')
+                        @endif
+
+                        {{-- Aquí viaja la lista de productos (la arma el JavaScript de abajo) --}}
+                        <input type="hidden" name="productos_json" id="productos_json"
+                            value="{{ old('productos_json', json_encode($productos ?? [])) }}">
+
+                        {{-- Catálogo de productos registrados (solo lectura, no se envía) --}}
+                        <input type="hidden" id="catalogo_json" value="{{ json_encode($catalogo ?? []) }}">
+
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-success">{{ !empty($cotizacion) ? 'Actualizar' : 'Registrar' }}</button>
+                            <a href="{{ url('/cotizacion') }}" class="btn btn-danger">Cancelar</a>
+                        </div>
+
+                        <!-- ===== Datos del cliente ===== -->
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title">Datos del Cliente</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Nombre del cliente</label>
+                                            <input type="text" class="form-control" name="nombre" maxlength="100"
+                                                value="{{ old('nombre', $cliente['nombre'] ?? '') }}"
+                                                placeholder="Ingresa el nombre">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Apellido paterno</label>
+                                            <input type="text" class="form-control" name="apellido_paterno" maxlength="100"
+                                                value="{{ old('apellido_paterno', $cliente['paterno'] ?? '') }}"
+                                                placeholder="Ingresa apellido paterno">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Apellido materno</label>
+                                            <input type="text" class="form-control" name="apellido_materno" maxlength="100"
+                                                value="{{ old('apellido_materno', $cliente['materno'] ?? '') }}"
+                                                placeholder="Ingresa apellido materno">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Fecha de solicitud</label>
+                                            <div class="input-group date" id="fechaSolicitudPicker" data-target-input="nearest">
+                                                <input type="text" class="form-control datetimepicker-input"
+                                                    data-target="#fechaSolicitudPicker" name="fecha" autocomplete="off"
+                                                    value="{{ old('fecha', !empty($cotizacion->fecha_cot) ? date('d/m/Y', strtotime($cotizacion->fecha_cot)) : '') }}">
+                                                <div class="input-group-append" data-target="#fechaSolicitudPicker" data-toggle="datetimepicker">
+                                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="form-group">
-                                <label>Nombre del cliente</label>
-                                <input type="text" class="form-control" name="nombre" placeholder="Ingresa el nombre">
-                            </div>
-
-                            <div class="form-group">
-                                <label> Apellido paterno </label>
-                                <input type="text" class="form-control" name="apellidoP" placeholder="Ingresa apellido paterno">
-                            </div>
-
-                            <div class="form-group">
-                                <label> Apellido materno </label>
-                                <input type="text" class="form-control" name=" apellidoM" placeholder="Ingresa apellido materno">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Nombre del producto</label>
-                                <input type="text" class="form-control" name="nombre" placeholder="Ingresa el nombre de algún producto">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Tipo de producto</label>
-                                <select class="form-control" name="material">
-                                    <option value="">Seleccione un tipo</option>
-                                    <option value="loseta">Loseta</option>
-                                    <option value="pegamento">Pega azulejo</option>
-                                    <option value="decorado">Decorado</option>
-                                </select>
-                            </div>
-
-                            <td>
-                                <button type="button" class="bg-gradient-warning btn-sm">Agregar producto</button>
-                            </td>
-
                         </div>
 
-                        <div class="col-md-6">
-
-                            <div class="form-group">
-                                <label>Unidad de medida</label>
-                                <select class="form-control" name="medida" id="unidadMedida">
-                                    <option value="">Seleccione una opción</option>
-                                    <option value="cajas">Cajas</option>
-                                    <option value="bulto">Bultos</option>
-                                    <option value="pz">Piezas</option>
-                                </select>
+                        <!-- ===== Productos ===== -->
+                        <div class="card card-warning" id="seccionProductos">
+                            <div class="card-header">
+                                <h3 class="card-title">Agregar Productos a Cotización</h3>
                             </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Nombre del producto</label>
+                                            <input type="text" class="form-control" id="p_nombre" maxlength="100"
+                                                list="listaProductos" autocomplete="off"
+                                                placeholder="Ingresa el nombre de algún producto">
+                                            <datalist id="listaProductos">
+                                                @foreach(($catalogo ?? []) as $pc)
+                                                <option value="{{ $pc['nombre'] }}">{{ trim($pc['color'] . ' ' . $pc['formato']) }}</option>
+                                                @endforeach
+                                            </datalist>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Tipo de producto</label>
+                                            <select class="form-control" id="p_tipo">
+                                                <option value="">Seleccione un tipo</option>
+                                                <option value="Loseta">Loseta</option>
+                                                <option value="Pegazulejo">Pegazulejo</option>
+                                                <option value="Decorado">Decorado</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Unidad de medida</label>
+                                            <select class="form-control" id="p_unidad">
+                                                <option value="">Seleccione una opción</option>
+                                                <option value="Caja">Caja</option>
+                                                <option value="Bulto">Bulto</option>
+                                                <option value="Pieza">Pieza</option>
+                                            </select>
+                                        </div>
+                                    </div>
 
-
-                            <div class="form-group">
-                                <label>Color del material</label>
-                                <select class="form-control" name="colores">
-                                    <option value="">Seleccione una opción</option>
-                                    <option value="color1">Negro</option>
-                                    <option value="color2">Blanco</option>
-                                    <option value="color3">Beige</option>
-                                    <option value="color4">Cafe</option>
-                                    <option value="color5">Gris</option>
-                                    <option value="color6">Azul</option>
-                                    <option value="color7">Verde</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Cantidad</label>
-                                <input type="number" class="form-control" name="cantidad" min="1" max="1000" step="1" value="1">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Stock disponible </label>
-                                <input type="text" class="form-control" name="stock" value="0">
-                            </div>
-
-
-                            <div class="form-group" id="formatoMedida" style="display: none;">
-                                <label>Formato de medida</label>
-                                <select class="form-control" name="formato">
-                                    <option value="">Seleccione un formato</option>
-                                    <option value="30x60">30 x 60</option>
-                                    <option value="60x60">60 x 60</option>
-                                    <option value="60x120">60 x 1.20</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group" id="fechaCaducidad" style="display: none;">
-                                <label>Fecha de caducidad</label>
-                                <div class="input-group date" id="fechaCaducidadPicker1" data-target-input="nearest">
-                                    <input type="text" class="form-control datetimepicker-input" data-target="#fechaCaducidadPicker" name="caducidad" />
-                                    <div class="input-group-append" data-target="#fechaCaducidadPicker" data-toggle="datetimepicker">
-                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Color</label>
+                                            <select class="form-control" id="p_color">
+                                                <option value="">Seleccione una opción</option>
+                                                @foreach(['Negro', 'Blanco', 'Beige', 'Café', 'Gris', 'Azul', 'Verde', 'Terracota', 'Dorado'] as $col)
+                                                <option value="{{ $col }}">{{ $col }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Cantidad</label>
+                                            <input type="number" class="form-control" id="p_cantidad" min="1" max="1000" step="1" value="1">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Precio unitario</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">$</span>
+                                                </div>
+                                                <input type="text" class="form-control" id="p_precio" placeholder="0.00">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="form-group">
-                                <label>Precio unitario</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">$</span>
-                                    </div>
-                                    <input type="text" class="form-control" name="precio" id="precio" placeholder="ingrese el precio en este formato 0.00">
+                                <button type="button" class="btn btn-warning" id="btnAgregar">
+                                    <i class="fas fa-plus"></i> Agregar producto
+                                </button>
+                                <span class="text-danger ml-2" id="errorProducto"></span>
+
+                                <div class="table-responsive mt-4">
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Producto</th>
+                                                <th>Tipo</th>
+                                                <th>Unidad</th>
+                                                <th>Cantidad</th>
+                                                <th>Precio</th>
+                                                <th>Subtotal</th>
+                                                <th class="text-center">Quitar</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tablaProductos"></tbody>
+                                    </table>
                                 </div>
-                            </div>
 
-                        </div>
-                    </div><br>
-
-                    <!-- Table row -->
-                    <div class="row">
-                        <div class="col-12 table-responsive">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Nombre producto</th>
-                                        <th>Tipo de material</th>
-                                        <th>Unidad de medida</th>
-                                        <th>Cantidad</th>
-                                        <th>Precio unitario</th>
-                                        <th>Subtotal</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Loseta Verona</td>
-                                        <td>Loseta</td>
-                                        <td>Cajas</td>
-                                        <td>10</td>
-                                        <td>$250.00</td>
-                                        <td>$2500.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Crest</td>
-                                        <td>Pega azulejo</td>
-                                        <td>Bultos</td>
-                                        <td>12</td>
-                                        <td>$200.00</td>
-                                        <td>$2400.00</td>
-                                    </tr>
-                                </tbody>
-                            </table><br>
-                        </div>
-
-                        <div class="form-group col-md-4">
-                            <label>Total: </label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">$</span>
-                                </div>
-                                <input type="text" class="form-control" name="total" placeholder="ingrese el monto total en este formato 0.00">
+                                <h4 class="text-right mt-3">Total Cotización: <b id="totalCotizacion">$0.00</b></h4>
                             </div>
                         </div>
 
-                    </div>
-
-                    <td>
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-success">Registrar</button>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-cancel">Cancelar</button>
-                        <button type="button" class="bg-gradient-warning btn-sm">Inicio</button>
-                    </td>
-
-                    <div class="modal fade" id="modal-success">
-                        <div class="modal-dialog">
-                            <div class="modal-content bg-success">
-
-                                <div class="modal-header">
-                                    <h4 class="modal-title">Registro exitoso</h4>
-                                </div>
-
-                                <div class="modal-body">
-                                    <p>La cotización se registró correctamente</p>
-                                </div>
-
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">
-                                        Cerrar
-                                    </button>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal fade" id="modal-cancel">
-                        <div class="modal-dialog">
-                            <div class="modal-content bg-danger">
-
-                                <div class="modal-header">
-                                    <h4 class="modal-title">Registro cancelado</h4>
-                                </div>
-
-                                <div class="modal-body">
-                                    <p>La cotización fue cancelada</p>
-                                </div>
-
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">
-                                        Cerrar
-                                    </button>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Control Sidebar -->
-                    <aside class="control-sidebar control-sidebar-dark">
-                        <!-- Control sidebar content goes here -->
-                    </aside>
-                    <!-- /.control-sidebar -->
+                    </form>
                 </div>
-                <!-- ./wrapper -->
+            </section>
+        </div>
 
-                <!-- jQuery -->
-                <script src="plugins/jquery/jquery.min.js"></script>
-                <!-- Bootstrap 4 -->
-                <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-                <!-- Select2 -->
-                <script src="plugins/select2/js/select2.full.min.js"></script>
-                <!-- Bootstrap4 Duallistbox -->
-                <script src="plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
-                <!-- InputMask -->
-                <script src="plugins/moment/moment.min.js"></script>
-                <script src="plugins/inputmask/jquery.inputmask.min.js"></script>
-                <!-- date-range-picker -->
-                <script src="plugins/daterangepicker/daterangepicker.js"></script>
-                <!-- bootstrap color picker -->
-                <script src="plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
-                <!-- Tempusdominus Bootstrap 4 -->
-                <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-                <!-- Bootstrap Switch -->
-                <script src="plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
-                <!-- BS-Stepper -->
-                <script src="plugins/bs-stepper/js/bs-stepper.min.js"></script>
-                <!-- dropzonejs -->
-                <script src="plugins/dropzone/min/dropzone.min.js"></script>
-                <!-- AdminLTE App -->
-                <script src="dist/js/adminlte.min.js"></script>
-                <!-- AdminLTE for demo purposes -->
-                <script src="dist/js/demo.js"></script>
-
-                <script>
-                    $(function() {
-                        $('#fechaCaducidadPicker').datetimepicker({
-                            format: 'L' // formato de fecha (día/mes/año)
-                        });
-                    });
-                </script>
-
-                <script>
-                    document.getElementById("unidadMedida").addEventListener("change", function() {
-                        var valor = this.value;
-
-                        var formato = document.getElementById("formatoMedida");
-                        var fecha = document.getElementById("fechaCaducidad");
-
-                        formato.style.display = "none";
-                        fecha.style.display = "none";
-
-                        if (valor === "cajas") {
-                            formato.style.display = "block";
-                        } else if (valor === "bulto") {
-                            fecha.style.display = "block";
-                        }
-                    });
-                </script>
-            </div>
-        </section>
+        <aside class="control-sidebar control-sidebar-dark"></aside>
     </div>
+
+    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js') }}"></script>
+    <script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
+    <script src="{{ asset('plugins/inputmask/jquery.inputmask.min.js') }}"></script>
+    <script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
+    <script src="{{ asset('plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js') }}"></script>
+    <script src="{{ asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+    <script src="{{ asset('plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
+    <script src="{{ asset('plugins/bs-stepper/js/bs-stepper.min.js') }}"></script>
+    <script src="{{ asset('plugins/dropzone/min/dropzone.min.js') }}"></script>
+    <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
+    <script src="{{ asset('dist/js/demo.js') }}"></script>
+
+    <script>
+        $(function() {
+            // Calendario de la fecha de solicitud (dd/mm/aaaa)
+            $('#fechaSolicitudPicker').datetimepicker({
+                format: 'DD/MM/YYYY'
+            });
+
+            // ---- Lista de productos de la cotización ----
+            var productos = [];
+            try {
+                productos = JSON.parse($('#productos_json').val() || '[]');
+            } catch (e) {
+                productos = [];
+            }
+            if (!Array.isArray(productos)) productos = [];
+
+            function dinero(n) {
+                return '$' + Number(n).toLocaleString('en-US', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                });
+            }
+
+            function celda(texto, clase) {
+                var td = document.createElement('td');
+                td.textContent = texto;
+                if (clase) td.className = clase;
+                return td;
+            }
+
+            function render() {
+                var tbody = document.getElementById('tablaProductos');
+                tbody.innerHTML = '';
+                var total = 0;
+
+                if (productos.length === 0) {
+                    var vacio = document.createElement('tr');
+                    var td = celda('Aún no has agregado productos.', 'text-center text-muted py-3');
+                    td.colSpan = 8;
+                    vacio.appendChild(td);
+                    tbody.appendChild(vacio);
+                }
+
+                productos.forEach(function(p, i) {
+                    var subtotal = Math.round(p.cantidad * p.precio * 100) / 100;
+                    total += subtotal;
+
+                    var tr = document.createElement('tr');
+                    tr.appendChild(celda(i + 1));
+
+                    var tdProd = celda(p.nombre);
+                    if (p.color) {
+                        var small = document.createElement('small');
+                        small.className = 'text-muted';
+                        small.textContent = ' (' + p.color + ')';
+                        tdProd.appendChild(small);
+                    }
+                    tr.appendChild(tdProd);
+
+                    tr.appendChild(celda(p.tipo));
+                    tr.appendChild(celda(p.unidad));
+                    tr.appendChild(celda(p.cantidad));
+                    tr.appendChild(celda(dinero(p.precio)));
+                    tr.appendChild(celda(dinero(subtotal)));
+
+                    var tdQuitar = document.createElement('td');
+                    tdQuitar.className = 'text-center';
+                    var btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.className = 'btn btn-sm btn-danger';
+                    btn.title = 'Quitar';
+                    btn.innerHTML = '<i class="fas fa-trash"></i>';
+                    btn.addEventListener('click', function() {
+                        productos.splice(i, 1);
+                        render();
+                    });
+                    tdQuitar.appendChild(btn);
+                    tr.appendChild(tdQuitar);
+
+                    tbody.appendChild(tr);
+                });
+
+                document.getElementById('totalCotizacion').textContent = dinero(total);
+                document.getElementById('productos_json').value = JSON.stringify(productos);
+            }
+
+            // ---- Catálogo de productos registrados (autocompletar) ----
+            var catalogo = [];
+            try {
+                catalogo = JSON.parse($('#catalogo_json').val() || '[]');
+            } catch (e) {
+                catalogo = [];
+            }
+            if (!Array.isArray(catalogo)) catalogo = [];
+            var idSeleccionado = null;
+
+            // Si el usuario sigue escribiendo, ya no es el producto elegido de la lista
+            $('#p_nombre').on('input', function() {
+                idSeleccionado = null;
+            });
+
+            // Al elegir un producto del catálogo se llenan tipo, unidad, color y precio
+            $('#p_nombre').on('change', function() {
+                var n = $(this).val().trim().toLowerCase();
+                var coincide = catalogo.filter(function(c) {
+                    return String(c.nombre).toLowerCase() === n;
+                });
+
+                if (coincide.length === 1) {
+                    var c = coincide[0];
+                    idSeleccionado = c.id;
+                    $('#p_tipo').val(c.tipo || '');
+                    $('#p_unidad').val(c.unidad || '');
+                    $('#p_color').val(c.color || '');
+                    $('#p_precio').val(Number(c.precio || 0).toFixed(2));
+                }
+            });
+
+            function agregarProducto() {
+                var nombre = $('#p_nombre').val().trim();
+                var tipo = $('#p_tipo').val();
+                var unidad = $('#p_unidad').val();
+                var color = $('#p_color').val();
+                var cantidad = parseInt($('#p_cantidad').val(), 10);
+                var precio = parseFloat(String($('#p_precio').val()).replace(',', '.'));
+                var error = '';
+
+                if (nombre === '') error = 'Escribe el nombre del producto.';
+                else if (!tipo) error = 'Selecciona el tipo de producto.';
+                else if (!unidad) error = 'Selecciona la unidad de medida.';
+                else if (isNaN(cantidad) || cantidad < 1) error = 'La cantidad debe ser al menos 1.';
+                else if (isNaN(precio) || precio < 0) error = 'Ingresa un precio válido (0.00).';
+
+                $('#errorProducto').text(error);
+                if (error) return;
+
+                productos.push({
+                    id_pro: idSeleccionado,
+                    nombre: nombre,
+                    color: color,
+                    tipo: tipo,
+                    unidad: unidad,
+                    cantidad: cantidad,
+                    precio: Math.round(precio * 100) / 100
+                });
+
+                // Limpia los campos para el siguiente producto
+                $('#p_nombre').val('');
+                $('#p_tipo, #p_unidad, #p_color').val('');
+                $('#p_cantidad').val(1);
+                $('#p_precio').val('');
+                idSeleccionado = null;
+                $('#p_nombre').focus();
+
+                render();
+            }
+
+            $('#btnAgregar').on('click', agregarProducto);
+
+            // Enter dentro de los campos del producto agrega el producto (no envía el formulario)
+            $('#seccionProductos input').on('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    agregarProducto();
+                }
+            });
+
+            render();
+        });
+    </script>
 </body>
 
 </html>
