@@ -43,8 +43,6 @@ Route:: get('/registro_cotizaciones',[registro_cotizacionesController::class,'Mi
 
 Route:: get('/registro_pedidos',[registro_pedidosController::class,'MiInterfaz9']);
 
-Route:: get('/registro_productos',[registro_productosController::class,'MiInterfaz10']);
-
 Route:: get('/registro_usu',[registro_usuController::class,'MiInterfaz11']);
 
 //Rutas para la creacion del CRUD usuarios
@@ -60,7 +58,7 @@ Route::prefix('usuarios')->group(function () {
 
 //Rutas para la creacion del CRUD productos
 Route::prefix('productos')->group(function () {
-    Route::get('/crear',[productosregistradosController::class,'vistacrearproducto'])->name('productos.vista');
+    Route::get('/registro_productos',[registro_productosController::class,'MiInterfaz10'])->name('productos.vista');
     Route::post('/guardar',[productosregistradosController::class,'guardarproducto'])->name('productos.store');
     Route::get('/buscar',[productosregistradosController::class,'buscarproducto'])->name('productos.search');
     Route::get('/descontinuados',[productosregistradosController::class,'verdescontinuados'])->name('productos.descontinuados');

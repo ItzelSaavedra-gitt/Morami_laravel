@@ -32,68 +32,65 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{ url('/panel') }}" class="nav-link">Home</a>
-                </li>
-            </ul>
-
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item dropdown">
-                    <a class="nav-link" data-toggle="dropdown" href="#">
-                        <i class="far fa-bell"></i>
-                        <span class="badge badge-warning navbar-badge">3</span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        <span class="dropdown-item dropdown-header">3 Notificaciones</span>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-box mr-2"></i> Tienes productos en bajo stock
-                            <span class="float-right text-muted text-sm">3 mins</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-users mr-2"></i> 3 pedidos pendientes
-                            <span class="float-right text-muted text-sm">12 hours</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-file mr-2"></i> Haz registrado nuevos productos
-                            <span class="float-right text-muted text-sm">2 days</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item dropdown-footer">Ver todas las Notificationes</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-                        <i class="fas fa-expand-arrows-alt"></i>
-                    </a>
+                    <a href="{{ url('/panel') }}" class="nav-link">Inicio</a>
                 </li>
             </ul>
         </nav>
         <!-- /.navbar -->
 
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
-            <a href="{{ url('/panel') }}" class="brand-link">
-                <img
-                    src="{{ asset('dist/img/Icono_MORAMI.jpeg') }}"
-                    alt="GM Logo"
-                    class="brand-image img-circle elevation-3"
-                    style="opacity: 0.8" />
-                <span class="brand-text font-weight-light">Grupo Morami</span>
+        <style>
+            .main-header.navbar {
+                min-height: 56px;
+                height: 56px;
+                box-sizing: border-box;
+            }
+
+            .main-sidebar .brand-link {
+                min-height: 56px;
+                height: 56px;
+                box-sizing: border-box;
+            }
+
+            .gm-aside-shell {
+                border-right: 1px solid #e2e8f0;
+                box-shadow: 4px 0 20px rgba(15, 23, 42, 0.04);
+            }
+
+            .gm-brand-header {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .gm-brand-logo {
+                width: 36px;
+                height: 36px;
+                margin-top: 0;
+                margin-right: 0;
+                border-radius: 50%;
+                box-shadow: 0 2px 6px rgba(18, 24, 143, 0.15);
+                /*Sombra del logo*/
+                opacity: 2;
+            }
+
+            .gm-brand-title {
+                font-size: 1rem;
+                font-weight: 700;
+                color: #0636a7;
+                letter-spacing: -0.01em;
+            }
+        </style>
+
+        <!-- Menú lateral -->
+        <aside class="main-sidebar sidebar-light-primary gm-aside-shell">
+            <a class="brand-link gm-brand-header">
+                <img src="{{ asset('dist/img/iconoMorami.png') }}" alt="GM Logo"
+                    class="brand-image gm-brand-logo" />
+                <span class="brand-text gm-brand-title">Grupo Morami</span>
             </a>
 
-            <div class="sidebar">
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="image">
-                        <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image" />
-                    </div>
-                    <div class="info">
-                        <a href="#" class="d-block">{{ session('usuario_nombre', 'Administrador') }}</a>
-                    </div>
-                </div>
-
+            <div class="sidebar gm-aside-body">
                 @include('MenuLateralView')
-
             </div>
         </aside>
 
@@ -104,13 +101,6 @@
                     <div class="row mb-2">
                         <div class="col-sm-6">
                             <h1>{{ !empty($producto) ? 'Editar producto' : 'Registro de nuevos productos' }}</h1>
-                        </div>
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="{{ url('/panel') }}">Home</a></li>
-                                <li class="breadcrumb-item"><a href="{{ url('/productosre') }}">Productos</a></li>
-                                <li class="breadcrumb-item active">{{ !empty($producto) ? 'Editar' : 'Nuevo' }}</li>
-                            </ol>
                         </div>
                     </div>
                 </div>
@@ -242,7 +232,6 @@
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-success">{{ !empty($producto) ? 'Actualizar' : 'Registrar' }}</button>
                                 <a href="{{ url('/productosre') }}" class="btn btn-danger">Cancelar</a>
-                                <a href="{{ url('/panel') }}" class="btn btn-default"><i class="fas fa-home" style="color: #FFD700;"></i> Inicio</a>
                             </div>
                         </form>
                     </div>

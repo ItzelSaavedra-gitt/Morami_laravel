@@ -28,29 +28,63 @@
           <a class='nav-link' data-widget='pushmenu' href='#' role='button'><i class='fas fa-bars'></i></a>
         </li>
         <li class='nav-item d-none d-sm-inline-block'>
-          <a href="{{ url('/panel') }}" class='nav-link'>Home</a>
+          <a href="{{ url('/panel') }}" class='nav-link'>Inicio</a>
         </li>
       </ul>
     </nav>
 
-    <aside class='main-sidebar sidebar-dark-primary elevation-4'>
-      <a href="{{ url('/panel') }}" class='brand-link'>
-        <img src='{{ asset('dist/img/Icono_MORAMI.jpeg') }}' alt='GM Logo' class='brand-image img-circle elevation-3' style='opacity: .8'>
-        <span class='brand-text font-weight-light'>Grupo Morami</span>
+    <style>
+      .main-header.navbar {
+        min-height: 56px;
+        height: 56px;
+        box-sizing: border-box;
+      }
+
+      .main-sidebar .brand-link {
+        min-height: 56px;
+        height: 56px;
+        box-sizing: border-box;
+      }
+
+      .gm-aside-shell {
+        border-right: 1px solid #e2e8f0;
+        box-shadow: 4px 0 20px rgba(15, 23, 42, 0.04);
+      }
+
+      .gm-brand-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .gm-brand-logo {
+        width: 36px;
+        height: 36px;
+        margin-top: 0;
+        margin-right: 0;
+        border-radius: 50%;
+        box-shadow: 0 2px 6px rgba(18, 24, 143, 0.15);/*Sombra del logo*/
+        opacity: 2;
+      }
+
+      .gm-brand-title {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #0636a7;
+        letter-spacing: -0.01em;
+      }
+    </style>
+    
+    <!-- Menú lateral -->
+    <aside class="main-sidebar sidebar-light-primary gm-aside-shell">
+      <a class="brand-link gm-brand-header">
+        <img src="{{ asset('dist/img/iconoMorami.png') }}" alt="GM Logo"
+          class="brand-image gm-brand-logo" />
+        <span class="brand-text gm-brand-title">Grupo Morami</span>
       </a>
 
-      <div class='sidebar'>
-        <div class='user-panel mt-3 pb-3 mb-3 d-flex'>
-          <div class='image'>
-            <img src='{{ asset('dist/img/user2-160x160.jpg') }}' class='img-circle elevation-2' alt='User Image'>
-          </div>
-          <div class='info'>
-            <a href="#" class="d-block">{{ session('usuario_nombre', 'Administrador') }}</a>
-          </div>
-        </div>
-
+      <div class="sidebar gm-aside-body">
         @include('MenuLateralView')
-
       </div>
     </aside>
 
