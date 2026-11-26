@@ -50,6 +50,8 @@ Route::prefix('usuarios')->group(function () {
     Route::get('/crear',[usuarioController::class,'vistacrear'])->name('usuarios.vista');
     Route::post('/guardar',[usuarioController::class,'guardarusuario'])->name('usuarios.store');
     Route::get('/buscar',[usuarioController::class,'buscarusuario'])->name('usuarios.search');
+    Route::get('/descontinuados',[usuarioController::class,'verdescontinuados'])->name('usuarios.descontinuados');
+    Route::put('/{id}/reactivar',[usuarioController::class,'reactivarusuario'])->name('usuarios.reactivar');
     Route::get('/{id}/editar',[usuarioController::class,'vistaeditar'])->name('usuarios.show');
     Route::get('/{id}',[usuarioController::class,'editarusuario'])->name('usuarios.edit');
     Route::put('/{id}',[usuarioController::class,'actualizarusuario'])->name('usuarios.update');

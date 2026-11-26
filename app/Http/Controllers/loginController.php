@@ -31,6 +31,7 @@ class loginController
                 ->first();
 
         } catch (\Exception $e) {
+            $detalle = config('app.debug') ? ' Detalle: ' . $e->getMessage() : '';
             return back()
                 ->withInput($request->only('usuario'))
                 ->with(

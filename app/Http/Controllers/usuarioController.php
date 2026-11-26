@@ -217,4 +217,40 @@ class usuarioController extends Controller
 
         return redirect()->route('usuarios.index')->with('ok', 'El usuario se eliminó con éxito');
     }
+
+
+    public function verdescontinuados(){
+        if ($this->sinSesion()) {
+            return redirect('/login');
+        }
+
+        try {
+            $res2Usuario = DB::connection('mysql')
+                ->table('usuarios')
+                ->select($this->columnas)
+                ->where('estatus', 'Inactivo')
+                ->get();
+
+            $titulo = "Grupo Morami";
+            return view("usuarios_inactivos", compact('titulo', 'res2Usuario'));
+        }
+        catch (\Exception $e) {
+            return response("Error al consultar la base de datos: " . $e->getMessage(), 500);
+        }
+    }
+
+    public function reactivarusuario($id){
+        if ($this->sinSesion()) {
+            return redirect('/login');
+        }
+
+        try {
+            DB::connection('mysql')->table('usuarios')->where('id_usu_pk', $id)->update(['estatus' => 'Activo']);
+        }
+        catch (\Exception $e) {
+            return redirect()->route('usuarios.descontinuados')->with('error', 'No se pudo reactivar: ' . $e->getMessage());
+        }
+
+        return redirect()->route('usuarios.descontinuados')->with('ok', 'El usuario se reactivó con éxito');
+    }
 }
